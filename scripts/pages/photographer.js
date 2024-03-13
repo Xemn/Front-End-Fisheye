@@ -4,14 +4,26 @@ const params = new URL(document.location).searchParams;
 const id = params.get("id");
 // console.log(id);
 
-async function getPhotographersById() {
+async function getDatasPhotographersById() {
 	const response = await fetch("../data/photographers.json");
 	const datas = await response.json();
-	console.log(datas);
+	// console.log(datas);
+	/* Récupération des informations concernant le photographe
+	possédant l'id présent dans l'URL : */
 	const currentPhotographer = datas.photographers.find(
 		(photographer) => photographer.id == id
 	);
-	console.log(currentPhotographer);
+	// console.log(currentPhotographer);
+	// Récupération des médias :
+	const medias = datas.media;
+	// console.log(medias);
+	// Récupération des médias concernant le dit photographe :
+	const photographerMedia = medias.filter(
+		(media) => media.photographerId == id
+	);
+	// console.log(photographerMedia);
+
+	return { currentPhotographer, photographerMedia };
 }
 
-getPhotographersById();
+getDatasPhotographersById();
