@@ -13,7 +13,7 @@ async function getDatasPhotographersById() {
 	const currentPhotographer = datas.photographers.find(
 		(photographer) => photographer.id == id
 	);
-	// console.log(currentPhotographer);
+	console.log(currentPhotographer);
 	// Récupération des médias :
 	const medias = datas.media;
 	// console.log(medias);
@@ -26,4 +26,18 @@ async function getDatasPhotographersById() {
 	return { currentPhotographer, photographerMedia };
 }
 
-getDatasPhotographersById();
+async function displayData(photographer) {
+	const photographerHeader = document.querySelector(".photograph-header");
+	const photographerModel = photographerTemplate(photographer);
+	const currentUserCardDOM = photographerModel.getCurrentPhotographerCardDOM();
+
+	photographerHeader.appendChild(currentUserCardDOM);
+}
+
+async function init() {
+	const { currentPhotographer } = await getDatasPhotographersById();
+	// console.log(currentPhotographer);
+	displayData(currentPhotographer);
+}
+
+init();
