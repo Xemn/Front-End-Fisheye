@@ -21,12 +21,33 @@ function photographerTemplate(data) {
 		priceContent.textContent = price + "€/jour";
 		priceContent.className = "price";
 		photographerLink.appendChild(article);
-		article.appendChild(h2);
 		article.appendChild(img);
+		article.appendChild(h2);
 		article.appendChild(h3);
 		article.appendChild(quote);
 		article.appendChild(priceContent);
 		return photographerLink;
 	}
-	return { name, picture, getUserCardDOM };
+
+	function getCurrentPhotographerCardDOM() {
+		const infosPhotographer = document.querySelector(".photograph-infos");
+		const h1 = document.createElement("h1");
+		const h2 = document.createElement("h2");
+		const quote = document.createElement("p");
+		const img = document.createElement("img");
+
+		h1.textContent = name;
+		h2.textContent = `${city}, ${country}`;
+		quote.textContent = tagline;
+		img.src = picture;
+		img.alt = `Photo de profil de notre photographe : ${name}`;
+
+		infosPhotographer.appendChild(h1);
+		infosPhotographer.appendChild(h2);
+		infosPhotographer.appendChild(quote);
+
+		return img;
+	}
+
+	return { picture, getUserCardDOM, getCurrentPhotographerCardDOM };
 }
