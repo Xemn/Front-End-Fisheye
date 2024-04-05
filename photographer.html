@@ -8,11 +8,17 @@
 			href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
 			rel="stylesheet"
 		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+		/>
 		<title>Fisheye - photographe</title>
 	</head>
 	<body class="photographer-body">
 		<header>
-			<img src="assets/images/logo.png" class="logo" />
+			<a href="./index.html">
+				<img src="assets/images/logo.png" class="logo" />
+			</a>
 		</header>
 		<main id="main">
 			<div class="photograph-header">
@@ -21,6 +27,7 @@
 					Contactez-moi
 				</button>
 			</div>
+			<section class="gallery"></section>
 		</main>
 		<div id="contact_modal">
 			<div class="modal">
@@ -30,13 +37,26 @@
 				</header>
 				<form>
 					<div>
-						<label>Prénom</label>
-						<input />
+						<label for="prenom">Prénom</label>
+						<input type="text" name="prenom" id="prenom" />
+						<label for="nom">Nom</label>
+						<input type="text" name="nom" id="nom" />
+						<label for="email">Email</label>
+						<input type="email" name="email" id="email" />
+						<label for="message">Votre message</label>
+						<textarea name="message" id="message" rows="5"></textarea>
 					</div>
 					<button class="contact_button">Envoyer</button>
 				</form>
 			</div>
 		</div>
+		<!-- Factory -->
+		<script src="/scripts/factories/MediaFactory.js"></script>
+		<!-- Classes -->
+		<script src="/scripts/models/Media.js"></script>
+		<script src="/scripts/models/Image.js"></script>
+		<script src="/scripts/models/Video.js"></script>
+		<!-- Others  -->
 		<script src="/scripts/templates/photographer.js"></script>
 		<script src="/scripts/pages/photographer.js"></script>
 		<script src="/scripts/utils/contactForm.js"></script>
