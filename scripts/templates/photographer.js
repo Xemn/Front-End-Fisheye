@@ -49,5 +49,46 @@ function photographerTemplate(data) {
 		return img;
 	}
 
-	return { picture, getUserCardDOM, getCurrentPhotographerCardDOM };
+	function getMediasGalleryCardDOM(photographerMedias) {
+		const gallery = document.querySelector(".gallery");
+
+		photographerMedias.forEach((media) => {
+			const figure = document.createElement("figure");
+			let mediaElement;
+			if (media instanceof Image) {
+				mediaElement = document.createElement("img");
+				mediaElement.src = media.src;
+			} else if (media instanceof Video) {
+				mediaElement = document.createElement("video");
+				mediaElement.src = media.src;
+				mediaElement.controls = true;
+			} else {
+				console.log("Type de média non reconnu");
+			}
+			const mediaInfos = document.createElement("figcaption");
+			const name = document.createElement("h3");
+			name.textContent = media.title;
+			const span = document.createElement("span");
+			const heart = document.createElement("i");
+			heart.classList.add("fas", "fa-heart");
+			const likes = document.createElement("p");
+			likes.textContent = media.likes;
+			span.appendChild(likes);
+			span.appendChild(heart);
+			mediaInfos.appendChild(name);
+			mediaInfos.appendChild(span);
+			figure.appendChild(mediaElement);
+			figure.appendChild(mediaInfos);
+			gallery.appendChild(figure);
+		});
+
+		return gallery;
+	}
+
+	return {
+		picture,
+		getUserCardDOM,
+		getCurrentPhotographerCardDOM,
+		getMediasGalleryCardDOM,
+	};
 }
