@@ -3,7 +3,6 @@ const params = new URL(document.location).searchParams;
 // console.log(params);
 const id = params.get("id");
 // console.log(id);
-
 async function getDatasPhotographersById() {
 	const response = await fetch("../data/photographers.json");
 	const datas = await response.json();
@@ -18,26 +17,29 @@ async function getDatasPhotographersById() {
 	const medias = datas.media;
 	// console.log(medias);
 	// Récupération des médias concernant le dit photographe :
-	const photographerMedia = medias.filter(
-		(media) => media.photographerId == id
-	);
-	// console.log(photographerMedia);
+	const photographerMedias = medias
+		.map((media) => new MediaFactory(media, currentPhotographer.name))
+		.filter((media) => media.photographerId == currentPhotographer.id);
+	console.log(photographerMedias);
 
-	return { currentPhotographer, photographerMedia };
+	return { currentPhotographer, photographerMedias };
 }
 
-async function displayData(photographer) {
+async function displayData(photographer, photographerMedias) {
 	const photographerHeader = document.querySelector(".photograph-header");
 	const photographerModel = photographerTemplate(photographer);
 	const currentUserCardDOM = photographerModel.getCurrentPhotographerCardDOM();
 
 	photographerHeader.appendChild(currentUserCardDOM);
+
+	// Afficher la galerie de médias
+	photographerModel.getMediasGalleryCardDOM(photographerMedias);
 }
 
 async function init() {
-	const { currentPhotographer } = await getDatasPhotographersById();
-	// console.log(currentPhotographer);
-	displayData(currentPhotographer);
+	const { currentPhotographer, photographerMedias } =
+		await getDatasPhotographersById();
+	displayData(currentPhotographer, photographerMedias);
 }
 
 init();
