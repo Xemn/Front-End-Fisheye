@@ -26,7 +26,9 @@ async function getPhotographers() {
             photographers: [...photographers, ...photographers, ...photographers]})
             */
 
-	const response = await fetch("../assets/photographers.json");
+	const response = await fetch(
+		"https://xemn.github.io/Front-End-Fisheye/assets/photographers.json"
+	);
 	const datas = await response.json();
 	// console.log(datas);
 	const photographers = await datas.photographers;
