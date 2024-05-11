@@ -38,9 +38,9 @@
 				<form>
 					<div>
 						<label for="prenom">Prénom</label>
-						<input type="text" name="prenom" id="prenom" />
+						<input type="text" name="prenom" id="prenom" minlength="3" />
 						<label for="nom">Nom</label>
-						<input type="text" name="nom" id="nom" />
+						<input type="text" name="nom" id="nom" minlength="3" />
 						<label for="email">Email</label>
 						<input type="email" name="email" id="email" />
 						<label for="message">Votre message</label>
@@ -59,6 +59,6 @@
 		<!-- Others  -->
 		<script src="/scripts/templates/photographer.js"></script>
 		<script src="/scripts/pages/photographer.js"></script>
-		<script src="/scripts/utils/contactForm.js"></script>
+		<script src="/scripts/utils/contactForm.js" defer></script>
 	</body>
 </html>
