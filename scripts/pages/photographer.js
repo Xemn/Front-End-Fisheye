@@ -5,7 +5,7 @@ const id = params.get("id");
 // console.log(id);
 async function getDatasPhotographersById() {
 	const response = await fetch(
-		"https://xemn.github.io/Front-End-Fisheye/assets/photographers.json"
+		"https://xemn.github.io/Front-End-Fisheye/photographers.json"
 	);
 	const datas = await response.json();
 	// console.log(datas);
