@@ -1,4 +1,4 @@
-#contact_modal {
+.wrapper {
 	display: none;
 	align-items: center;
 	justify-content: center;
@@ -106,7 +106,6 @@ figcaption span i {
 	border-radius: 5px;
 	background-color: var(--secondary-color);
 	width: 30%;
-	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
@@ -161,4 +160,71 @@ form textarea {
 
 .invalid {
 	outline: 2px solid red;
+}
+
+#lightbox_modal {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	max-width: 1000px;
+	background-color: white;
+	border-radius: 5px;
+}
+
+.lightboxContent {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+.lightboxContent img,
+.lightboxContent video {
+	width: 80%;
+	height: 80%;
+}
+
+#lightboxCaption {
+	color: var(--primary-color);
+	font-size: 1em;
+	align-self: flex-start;
+	margin-left: 100px;
+}
+
+#prevBtn,
+#nextBtn,
+#closeBtn {
+	z-index: 2;
+	position: absolute;
+	top: 50%;
+	padding: 5px;
+	border: none;
+	background: none;
+}
+
+.chevron,
+#closeBtn {
+	font-size: 3em;
+	color: var(--primary-color);
+	cursor: pointer;
+}
+
+#prevBtn {
+	left: 1em;
+}
+
+#nextBtn {
+	right: 1em;
+}
+
+#closeBtn {
+	top: 25px;
+	right: 25px;
 }
