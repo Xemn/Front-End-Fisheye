@@ -80,6 +80,10 @@ function photographerTemplate(data) {
 			figure.appendChild(mediaElement);
 			figure.appendChild(mediaInfos);
 			gallery.appendChild(figure);
+
+			figure.addEventListener("click", () => {
+				displayLightbox(figure);
+			});
 		});
 
 		return gallery;
