@@ -3,7 +3,11 @@ function displayModal() {
 	modal.style.display = "flex";
 	const photographerName = document.querySelector("h1").innerText;
 	const modalHeader = document.querySelector(".modal header h2");
-	modalHeader.innerHTML += `<br> ${photographerName}`;
+
+	// Vérifiez si le nom est déjà présent pour éviter la duplication :
+	if (!modalHeader.innerHTML.includes(photographerName)) {
+		modalHeader.innerHTML += `<br> ${photographerName}`;
+	}
 }
 
 function closeModal() {
@@ -31,12 +35,13 @@ function displayErrorMessage() {
 		email: "Veuillez saisir une adresse mail valide.",
 	};
 	const fieldsToValidate = document.querySelectorAll("form input");
+	let isValidField = false;
+	let isValidForm = true;
 
 	// Nous parcourons tous les champs et afficher le message d'erreur si nécéssaire :
 	fieldsToValidate.forEach((field) => {
 		// On récupère l'id du champ :
 		const fieldId = field.id;
-		let isValidField = false;
 
 		switch (fieldId) {
 			case "nom":
@@ -49,10 +54,10 @@ function displayErrorMessage() {
 				isValidField = validateField(field, /^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 				break;
 		}
-
+		// Nous vérifions si un élément d'erreur existe déjà pour ce champ :
+		let exisitingErrorMessage = document.querySelector(`#${fieldId}-error`);
 		if (!isValidField) {
-			// Nous vérifions si un élément d'erreur existe déjà pour ce champ :
-			const exisitingErrorMessage = document.querySelector(`#${fieldId}-error`);
+			isValidForm = false;
 			// Nous récupérons le message d'erreur spécifique au champ :
 			const errorMessage = errorMessages[fieldId];
 			/* Nous créeons la balise pour le message d'erreur :
@@ -64,23 +69,27 @@ function displayErrorMessage() {
 				errorMessageElement.id = `${fieldId}-error`;
 				// Nous affichons le message d'erreur en dessous de l'input correspondant :
 				field.after(errorMessageElement);
-			} else {
+			}
+		} else {
+			if (exisitingErrorMessage) {
 				exisitingErrorMessage.remove();
 			}
 		}
 		field.classList.toggle("invalid", !isValidField);
 		field.classList.toggle("valid", isValidField);
 	});
+
+	return isValidForm;
 }
 
 function submitForm() {
 	const form = document.querySelector("form");
 
-	form.addEventListener("input", () => displayErrorMessage());
+	form.addEventListener("change", () => displayErrorMessage());
 
 	form.addEventListener("submit", (event) => {
 		event.preventDefault();
-		if (form.checkValidity()) {
+		if (displayErrorMessage()) {
 			const formDatas = {};
 			document
 				.querySelectorAll("form input, form textarea")
@@ -92,6 +101,7 @@ function submitForm() {
 				.querySelectorAll("form input")
 				.forEach((input) => input.classList.remove("valid"));
 			form.reset();
+			closeModal();
 		}
 	});
 }
