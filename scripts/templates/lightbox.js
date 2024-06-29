@@ -1,5 +1,5 @@
 // Template pour la lightbox :
-function lightboxDom(figure) {
+function lightboxDom(photographerMedias, index) {
 	const lightboxWrapper = document.getElementById("lightbox_wrapper");
 	const lightboxModal = document.getElementById("lightbox_modal");
 	const lightboxContent = lightboxModal.querySelector(".lightboxContent");
@@ -8,28 +8,28 @@ function lightboxDom(figure) {
 	// Nous vidons le contenu de la figure :
 	lightboxContent.innerHTML = "";
 
-	// Extraire l'image/vidéo et le texte de la figure :
-	const img = figure.querySelector("img");
-	const video = figure.querySelector("video");
-	const caption = figure.querySelector("figcaption");
+	// Extraire le média actuel :
+	const media = photographerMedias[index];
+
+	console.log(media);
 
 	// Code HTML en fonction du type de média :
-	if (img) {
-		const lightboxImg = document.createElement("img");
-		lightboxImg.src = img.src;
-		lightboxImg.alt = img.alt || "";
-		lightboxContent.appendChild(lightboxImg);
-	} else if (video) {
-		const lightboxVideo = document.createElement("video");
-		lightboxVideo.controls = true;
-		const lightboxVideoSource = document.createElement("source");
-		lightboxVideoSource.src = video.src;
-		lightboxVideoSource.type = video.type || "video/mp4";
-		lightboxVideo.appendChild(lightboxVideoSource);
-		lightboxContent.appendChild(lightboxVideo);
-		lightboxVideo.load(); // Recharge la vidéo afin d'appliquer la nouvelle source
+	let mediaElement;
+	if (media instanceof Image) {
+		mediaElement = document.createElement("img");
+		mediaElement.src = media._src;
+		mediaElement.alt = media._title;
+	} else if (media instanceof Video) {
+		mediaElement = document.createElement("video");
+		mediaElement.controls = true;
+		const mediaSource = document.createElement("source");
+		mediaSource.src = media.src;
+		mediaSource.type = media.mimeType || "video/mp4";
+		mediaElement.appendChild(mediaSource);
+		mediaElement.load(); // Recharge la vidéo pour appliquer la nouvelle source
 	} else {
 		console.error("Unsupported media type");
+		return;
 	}
 
 	// Création du bouton de fermeture de la modale :
@@ -48,21 +48,23 @@ function lightboxDom(figure) {
 	prevIcon.classList.add("fa-solid", "fa-chevron-left", "chevron");
 	prevBtn.appendChild(prevIcon);
 	prevBtn.id = "prevBtn";
+	prevBtn.addEventListener("click", () => {
+		previousMedia(photographerMedias, index);
+	});
 
 	const nextBtn = document.createElement("button");
 	const nextIcon = document.createElement("i");
 	nextIcon.classList.add("fa-solid", "fa-chevron-right", "chevron");
 	nextBtn.appendChild(nextIcon);
 	nextBtn.id = "nextBtn";
+	nextBtn.addEventListener("click", () => {
+		nextMedia(photographerMedias, index);
+	});
 
 	// Insertions des divers éléments dans le DOM :
-	lightboxCaption.innerHTML = caption.innerHTML;
-	// Suppresion du span possédant le nombre de like :
-	const likeSpan = lightboxCaption.querySelector("span");
-	if (likeSpan) {
-		likeSpan.remove(); // Supprime le span spécifique
-	}
+	lightboxCaption.textContent = media.title;
 
+	lightboxContent.appendChild(mediaElement);
 	lightboxContent.appendChild(lightboxCaption);
 	lightboxContent.appendChild(nextBtn);
 	lightboxContent.appendChild(prevBtn);
