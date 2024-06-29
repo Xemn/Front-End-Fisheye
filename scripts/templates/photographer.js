@@ -52,7 +52,7 @@ function photographerTemplate(data) {
 	function getMediasGalleryCardDOM(photographerMedias) {
 		const gallery = document.querySelector(".gallery");
 
-		photographerMedias.forEach((media) => {
+		photographerMedias.forEach((media, index) => {
 			const figure = document.createElement("figure");
 			let mediaElement;
 			if (media instanceof Image) {
@@ -82,7 +82,7 @@ function photographerTemplate(data) {
 			gallery.appendChild(figure);
 
 			figure.addEventListener("click", () => {
-				displayLightbox(figure);
+				displayLightbox(photographerMedias, index);
 			});
 		});
 
