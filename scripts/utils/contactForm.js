@@ -106,4 +106,8 @@ function submitForm() {
 	});
 }
 
+document.querySelector("#contact_modal").addEventListener("click", () => {
+	closeModal();
+});
+
 submitForm();
