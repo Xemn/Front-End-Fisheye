@@ -70,7 +70,7 @@ function photographerTemplate(data) {
 			name.textContent = media.title;
 			const span = document.createElement("span");
 			const heart = document.createElement("i");
-			heart.classList.add("fas", "fa-heart");
+			heart.classList.add("fas", "fa-heart", "like-button");
 			const likes = document.createElement("p");
 			likes.textContent = media.likes;
 			span.appendChild(likes);
@@ -81,12 +81,41 @@ function photographerTemplate(data) {
 			figure.appendChild(mediaInfos);
 			gallery.appendChild(figure);
 
-			figure.addEventListener("click", () => {
+			mediaElement.addEventListener("click", () => {
 				displayLightbox(photographerMedias, index);
 			});
 		});
-
 		return gallery;
+	}
+
+	function displayTotalLikes(photographerMedias, photographer) {
+		let totalLikes = updateTotalLikes(photographerMedias);
+
+		const aside = document.createElement("aside");
+		const paragraph = document.createElement("p");
+		const likesSpan = document.createElement("span");
+		likesSpan.classList.add("likes");
+		const heartSpan = document.createElement("span");
+		heartSpan.classList.add("fas", "fa-heart");
+		const priceSpan = document.createElement("span");
+
+		likesSpan.textContent = totalLikes;
+		priceSpan.textContent = photographer.price + " / jour";
+
+		paragraph.appendChild(likesSpan);
+		paragraph.appendChild(heartSpan);
+
+		aside.appendChild(paragraph);
+		aside.appendChild(priceSpan);
+
+		const main = document.querySelector("main");
+		main.appendChild(aside);
+
+		// Ajouter un écouteur d'événement à chaque bouton de like
+		const likeBtns = document.querySelectorAll(".like-button");
+		likeBtns.forEach((button) => {
+			button.addEventListener("click", like);
+		});
 	}
 
 	return {
@@ -94,5 +123,6 @@ function photographerTemplate(data) {
 		getUserCardDOM,
 		getCurrentPhotographerCardDOM,
 		getMediasGalleryCardDOM,
+		displayTotalLikes,
 	};
 }
