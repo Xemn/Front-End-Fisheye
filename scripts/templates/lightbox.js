@@ -74,5 +74,7 @@ function lightboxDom(photographerMedias, index) {
 
 	lightboxWrapper.appendChild(lightboxModal);
 
+	lightboxWrapper.addEventListener("click", () => closeLightbox());
+
 	return lightboxWrapper;
 }
