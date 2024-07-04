@@ -25,7 +25,7 @@ async function getDatasPhotographersById() {
 	return { currentPhotographer, photographerMedias };
 }
 
-async function displayData(photographer, photographerMedias) {
+function displayData(photographer, photographerMedias) {
 	const photographerHeader = document.querySelector(".photograph-header");
 	const photographerModel = photographerTemplate(photographer);
 	const currentUserCardDOM = photographerModel.getCurrentPhotographerCardDOM();
@@ -34,6 +34,9 @@ async function displayData(photographer, photographerMedias) {
 
 	// Afficher la galerie de médias
 	photographerModel.getMediasGalleryCardDOM(photographerMedias);
+
+	// Affiche le nombre total de like :
+	photographerModel.displayTotalLikes(photographerMedias, photographer);
 }
 
 async function init() {
