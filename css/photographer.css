@@ -14,6 +14,7 @@
 .photographer-body {
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 0;
 	width: 90%;
 }
 
@@ -200,6 +201,14 @@ form textarea {
 	margin-left: 100px;
 }
 
+span i:hover {
+	color: var(--secondary-color);
+}
+
+.liked {
+	color: var(--secondary-color);
+}
+
 #prevBtn,
 #nextBtn,
 #closeBtn {
@@ -229,4 +238,23 @@ form textarea {
 #closeBtn {
 	top: 25px;
 	right: 25px;
+}
+
+aside {
+	position: sticky;
+	bottom: 0;
+	left: 100%;
+	width: fit-content;
+	display: flex;
+	align-items: center;
+	height: 50px;
+	gap: 50px;
+	padding: 5px 15px;
+	font-size: 1.25em;
+	border-radius: 5px;
+	background-color: var(--secondary-color);
+}
+
+span {
+	margin-right: 5px;
 }
