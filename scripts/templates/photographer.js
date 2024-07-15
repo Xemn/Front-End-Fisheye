@@ -11,6 +11,7 @@ function photographerTemplate(data) {
 		img.alt = `Photo de profil de notre photographe : ${name}`;
 		const photographerLink = document.createElement("a");
 		photographerLink.href = `photographer.html?id=${id}`;
+		photographerLink.title = `Voir le profil de ${name}`;
 		const h2 = document.createElement("h2");
 		h2.textContent = name;
 		const h3 = document.createElement("h3");
@@ -27,6 +28,70 @@ function photographerTemplate(data) {
 		article.appendChild(quote);
 		article.appendChild(priceContent);
 		return photographerLink;
+	}
+
+	function displayFilters(photographerMedias) {
+		const filterDiv = document.querySelector(".filter-div");
+		const label = document.createElement("p");
+		label.textContent = "Trier par : ";
+		const dropDown = document.createElement("div");
+		dropDown.classList.add("dropdown");
+		const activeButton = document.createElement("button");
+		const filter = document.createElement("span");
+		filter.textContent = "Popularité";
+		activeButton.classList.add("dropbtn");
+		activeButton.setAttribute("aria-haspopup", "listbox");
+		activeButton.setAttribute("aria-expanded", "false");
+
+		const chevron = document.createElement("span");
+		chevron.classList.add("fa-solid", "fa-chevron-up", "arrow");
+		chevron.addEventListener("click", () => {
+			chevron.classList.toggle("rotate");
+			dropDown.classList.toggle("visible");
+			const isExpanded = activeButton.getAttribute("aria-expanded") === "true";
+			activeButton.setAttribute("aria-expanded", !isExpanded);
+		});
+		const list = document.createElement("ul");
+		list.setAttribute("role", "listbox");
+		const listItems = ["Titre", "Date"];
+		listItems.forEach((item) => {
+			const listItem = document.createElement("li");
+			const buttonItem = document.createElement("button");
+			buttonItem.textContent = item;
+			buttonItem.classList.add("dropbtn");
+			buttonItem.setAttribute("role", "option");
+
+			buttonItem.addEventListener("click", () => {
+				const tempText = filter.textContent;
+				filter.textContent = buttonItem.textContent;
+				buttonItem.textContent = tempText;
+				const sortedMedias = filteredMedias(
+					photographerMedias,
+					filter.textContent
+				);
+				console.log(sortedMedias);
+				const gallery = document.querySelector(".gallery");
+				gallery.innerHTML = "";
+				const likes = document.querySelector(".likes");
+				likes.innerHTML = "";
+				getMediasGalleryCardDOM(sortedMedias);
+				likes.innerHTML = updateTotalLikes(sortedMedias);
+
+				dropDown.classList.remove("visible");
+				chevron.classList.remove("rotate");
+				activeButton.setAttribute("aria-expanded", "false");
+			});
+
+			listItem.appendChild(buttonItem);
+			list.appendChild(listItem);
+		});
+		activeButton.appendChild(filter);
+		activeButton.appendChild(chevron);
+		dropDown.appendChild(activeButton);
+		dropDown.appendChild(list);
+
+		filterDiv.appendChild(label);
+		filterDiv.appendChild(dropDown);
 	}
 
 	function getCurrentPhotographerCardDOM() {
@@ -54,14 +119,16 @@ function photographerTemplate(data) {
 
 		photographerMedias.forEach((media, index) => {
 			const figure = document.createElement("figure");
+			figure.tabIndex = "0";
 			let mediaElement;
 			if (media instanceof Image) {
 				mediaElement = document.createElement("img");
 				mediaElement.src = media.src;
+				mediaElement.alt = media.title;
 			} else if (media instanceof Video) {
 				mediaElement = document.createElement("video");
 				mediaElement.src = media.src;
-				mediaElement.controls = true;
+				mediaElement.setAttribute("aria-label", media.title);
 			} else {
 				console.log("Type de média non reconnu");
 			}
@@ -71,6 +138,12 @@ function photographerTemplate(data) {
 			const span = document.createElement("span");
 			const heart = document.createElement("i");
 			heart.classList.add("fas", "fa-heart", "like-button");
+			heart.tabIndex = "0";
+			heart.setAttribute("role", "button");
+			heart.setAttribute("aria-label", "Like");
+
+			heart.addEventListener("click", like);
+
 			const likes = document.createElement("p");
 			likes.textContent = media.likes;
 			span.appendChild(likes);
@@ -95,6 +168,7 @@ function photographerTemplate(data) {
 		const paragraph = document.createElement("p");
 		const likesSpan = document.createElement("span");
 		likesSpan.classList.add("likes");
+		likesSpan.setAttribute("aria-label", "Total likes");
 		const heartSpan = document.createElement("span");
 		heartSpan.classList.add("fas", "fa-heart");
 		const priceSpan = document.createElement("span");
@@ -110,17 +184,12 @@ function photographerTemplate(data) {
 
 		const main = document.querySelector("main");
 		main.appendChild(aside);
-
-		// Ajouter un écouteur d'événement à chaque bouton de like
-		const likeBtns = document.querySelectorAll(".like-button");
-		likeBtns.forEach((button) => {
-			button.addEventListener("click", like);
-		});
 	}
 
 	return {
 		picture,
 		getUserCardDOM,
+		displayFilters,
 		getCurrentPhotographerCardDOM,
 		getMediasGalleryCardDOM,
 		displayTotalLikes,
