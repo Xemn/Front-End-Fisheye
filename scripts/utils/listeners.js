@@ -1,10 +1,10 @@
 function handleKeyPress(event, photographerMedias, index) {
 	switch (event.key) {
 		case "ArrowLeft":
-			nextMedia(photographerMedias, index);
+			previousMedia(photographerMedias, index);
 			break;
 		case "ArrowRight":
-			previousMedia(photographerMedias, index);
+			nextMedia(photographerMedias, index);
 			break;
 		case "Escape":
 			closeLightbox();
