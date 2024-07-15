@@ -32,8 +32,11 @@ function displayData(photographer, photographerMedias) {
 
 	photographerHeader.appendChild(currentUserCardDOM);
 
+	photographerModel.displayFilters(photographerMedias);
 	// Afficher la galerie de médias
-	photographerModel.getMediasGalleryCardDOM(photographerMedias);
+	photographerModel.getMediasGalleryCardDOM(
+		filteredMedias(photographerMedias, "Popularité")
+	);
 
 	// Affiche le nombre total de like :
 	photographerModel.displayTotalLikes(photographerMedias, photographer);
