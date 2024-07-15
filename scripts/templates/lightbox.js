@@ -1,4 +1,3 @@
-// Template pour la lightbox :
 function lightboxDom(photographerMedias, index) {
 	const lightboxWrapper = document.getElementById("lightbox_wrapper");
 	const lightboxModal = document.getElementById("lightbox_modal");
@@ -41,8 +40,10 @@ function lightboxDom(photographerMedias, index) {
 	closeBtn.addEventListener("click", () => {
 		closeLightbox();
 	});
-	//Création des boutons Suivant/Précédent :
+	closeBtn.setAttribute("aria-label", "Fermer la fenêtre modale");
+	closeBtn.setAttribute("role", "button"); // Ajout de l'attribut role
 
+	// Création des boutons Suivant/Précédent :
 	const prevBtn = document.createElement("button");
 	const prevIcon = document.createElement("i");
 	prevIcon.classList.add("fa-solid", "fa-chevron-left", "chevron");
@@ -51,6 +52,8 @@ function lightboxDom(photographerMedias, index) {
 	prevBtn.addEventListener("click", () => {
 		previousMedia(photographerMedias, index);
 	});
+	prevBtn.setAttribute("aria-label", "Média précédent");
+	prevBtn.setAttribute("role", "button"); // Ajout de l'attribut role
 
 	const nextBtn = document.createElement("button");
 	const nextIcon = document.createElement("i");
@@ -60,6 +63,8 @@ function lightboxDom(photographerMedias, index) {
 	nextBtn.addEventListener("click", () => {
 		nextMedia(photographerMedias, index);
 	});
+	nextBtn.setAttribute("aria-label", "Média suivant");
+	nextBtn.setAttribute("role", "button"); // Ajout de l'attribut role
 
 	// Insertions des divers éléments dans le DOM :
 	lightboxCaption.textContent = media.title;
