@@ -8,6 +8,12 @@ function displayModal() {
 	if (!modalHeader.innerHTML.includes(photographerName)) {
 		modalHeader.innerHTML += `<br> ${photographerName}`;
 	}
+
+	// Ajoutez un écouteur d'événements pour arrêter la propagation sur la modal
+	const modalContent = document.querySelector(".modal");
+	modalContent.addEventListener("click", (event) => {
+		event.stopPropagation();
+	});
 }
 
 function closeModal() {
@@ -105,9 +111,6 @@ function submitForm() {
 		}
 	});
 }
-
-document.querySelector("#contact_modal").addEventListener("click", () => {
-	closeModal();
-});
+document.querySelector("#contact_modal").addEventListener("click", closeModal);
 
 submitForm();
