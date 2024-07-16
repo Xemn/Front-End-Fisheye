@@ -45,6 +45,7 @@ function photographerTemplate(data) {
 
 		const chevron = document.createElement("span");
 		chevron.classList.add("fa-solid", "fa-chevron-up", "arrow");
+		chevron.tabIndex = "0";
 		chevron.addEventListener("click", () => {
 			chevron.classList.toggle("rotate");
 			dropDown.classList.toggle("visible");
@@ -92,6 +93,8 @@ function photographerTemplate(data) {
 
 		filterDiv.appendChild(label);
 		filterDiv.appendChild(dropDown);
+
+		addDropdownListeners(chevron, dropDown, activeButton);
 	}
 
 	function getCurrentPhotographerCardDOM() {
