@@ -1,6 +1,18 @@
 function displayModal() {
 	const modal = document.getElementById("contact_modal");
 	modal.style.display = "flex";
+	modal.ariaHidden = false;
+	modal.ariaExpanded = true;
+	// Suppression et mise à niveau du focus :
+	const focusableElementsString = document.querySelectorAll(
+		"a, button, input, textarea, select, [tabindex]"
+	);
+	focusableElementsString.forEach((element) => {
+		if (!modal.contains(element)) {
+			element.setAttribute("tabindex", "-1");
+		}
+	});
+
 	const photographerName = document.querySelector("h1").innerText;
 	const modalHeader = document.querySelector(".modal header h2");
 
@@ -19,6 +31,16 @@ function displayModal() {
 function closeModal() {
 	const modal = document.getElementById("contact_modal");
 	modal.style.display = "none";
+	modal.ariaExpanded = false;
+	modal.ariaHidden = true;
+
+	// Restaurer le focus sur tous les éléments :
+	const minusTabIndex = document.querySelectorAll('[tabindex="-1"]');
+	minusTabIndex.forEach((element) => {
+		element.setAttribute("tabindex", "0");
+	});
+	// Restaurer le focus au bouton d'ouverture :
+	document.querySelector(".contact_button").focus();
 }
 
 function validateField(field, regex) {
@@ -112,5 +134,18 @@ function submitForm() {
 	});
 }
 document.querySelector("#contact_modal").addEventListener("click", closeModal);
+document
+	.querySelector("#contact_modal")
+	.addEventListener("keydown", (event) => {
+		if (event.key === "Escape") {
+			closeModal();
+		}
+	});
+
+document.querySelector(".modal img").addEventListener("keypress", (event) => {
+	if (event.key === "Enter") {
+		closeModal();
+	}
+});
 
 submitForm();
