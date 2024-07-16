@@ -11,3 +11,21 @@ function handleKeyPress(event, photographerMedias, index) {
 			break;
 	}
 }
+
+function toggleDropdown(chevron, dropDown, activeButton) {
+	chevron.classList.toggle("rotate");
+	dropDown.classList.toggle("visible");
+	const isExpanded = activeButton.getAttribute("aria-expanded") === "true";
+	activeButton.setAttribute("aria-expanded", !isExpanded);
+}
+
+function addDropdownListeners(chevron, dropDown, activeButton) {
+	chevron.addEventListener("click", () =>
+		toggleDropdown(chevron, dropDown, activeButton)
+	);
+	chevron.addEventListener("keydown", (event) => {
+		if (event.key === "Enter") {
+			toggleDropdown(chevron, dropDown, activeButton);
+		}
+	});
+}
