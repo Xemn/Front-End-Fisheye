@@ -41,14 +41,20 @@
 				</div>
 			</div>
 		</main>
-		<div id="contact_modal" class="wrapper">
-			<div class="modal">
+		<div
+			id="contact_modal"
+			class="wrapper"
+			aria-hidden="true"
+			aria-expanded="false"
+		>
+			<div class="modal" role="dialog">
 				<header>
 					<h2>Contactez-moi</h2>
 					<img
 						src="assets/icons/close.svg"
 						onclick="closeModal()"
 						alt="Icone croix afin de fermer la modale de contact"
+						tabindex="1"
 					/>
 				</header>
 				<form>
