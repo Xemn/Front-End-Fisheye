@@ -46,12 +46,7 @@ function photographerTemplate(data) {
 		const chevron = document.createElement("span");
 		chevron.classList.add("fa-solid", "fa-chevron-up", "arrow");
 		chevron.tabIndex = "0";
-		chevron.addEventListener("click", () => {
-			chevron.classList.toggle("rotate");
-			dropDown.classList.toggle("visible");
-			const isExpanded = activeButton.getAttribute("aria-expanded") === "true";
-			activeButton.setAttribute("aria-expanded", !isExpanded);
-		});
+
 		const list = document.createElement("ul");
 		list.setAttribute("role", "listbox");
 		const listItems = ["Titre", "Date"];
@@ -70,7 +65,7 @@ function photographerTemplate(data) {
 					photographerMedias,
 					filter.textContent
 				);
-				console.log(sortedMedias);
+				// console.log(sortedMedias);
 				const gallery = document.querySelector(".gallery");
 				gallery.innerHTML = "";
 				const likes = document.querySelector(".likes");
