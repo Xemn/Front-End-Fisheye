@@ -1,5 +1,7 @@
+/*--- Chargement du fichier de style de la page photographer ---*/
 @import url("photographer.css");
 
+/*--- Couleurs principales du projet :  ---*/
 :root {
 	--primary-color: #901c1c;
 	--secondary-color: #d3573c;
@@ -7,11 +9,15 @@
 	--article-hover: #fafafa;
 }
 
+/*--- CORPS DE LA PAGE ---*/
+
 body {
 	font-family: "DM Sans", sans-serif;
 	margin: 0;
 	margin-bottom: 5em;
 }
+
+/*--- ENTÊTE ---*/
 
 header {
 	display: flex;
@@ -30,6 +36,8 @@ h1 {
 	height: 50px;
 	margin-left: 100px;
 }
+
+/*--- SECTION PHOTOGRAPHES ---*/
 
 .photographer_section {
 	display: grid;
