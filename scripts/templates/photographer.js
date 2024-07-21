@@ -1,8 +1,9 @@
+/*--- Fonctions qui englobe nos différents template : ---*/
 function photographerTemplate(data) {
 	const { name, portrait, id, city, country, tagline, price } = data;
 
 	const picture = `assets/photographers/${portrait}`;
-
+	/*--- Fonction qui crée la "carte" d'un photographe :  ---*/
 	function getUserCardDOM() {
 		const article = document.createElement("article");
 		article.setAttribute("data-id", id);
@@ -30,6 +31,7 @@ function photographerTemplate(data) {
 		return photographerLink;
 	}
 
+	/*--- Fonction qui affiche les différents filtre :  ---*/
 	function displayFilters(photographerMedias) {
 		const filterDiv = document.querySelector(".filter-div");
 		const label = document.createElement("p");
@@ -91,7 +93,7 @@ function photographerTemplate(data) {
 
 		addDropdownListeners(chevron, dropDown, activeButton);
 	}
-
+	/*--- Fonction qui affiche les informations précise d'un photographe : ---*/
 	function getCurrentPhotographerCardDOM() {
 		const infosPhotographer = document.querySelector(".photograph-infos");
 		const h1 = document.createElement("h1");
@@ -111,7 +113,7 @@ function photographerTemplate(data) {
 
 		return img;
 	}
-
+	/*--- Fonction qui affiche la gallerie d'un photographe précis : ---*/
 	function getMediasGalleryCardDOM(photographerMedias) {
 		const gallery = document.querySelector(".gallery");
 
@@ -159,6 +161,7 @@ function photographerTemplate(data) {
 		return gallery;
 	}
 
+	/*--- Fonction qui affiche le total des likes : ---*/
 	function displayTotalLikes(photographerMedias, photographer) {
 		let totalLikes = updateTotalLikes(photographerMedias);
 

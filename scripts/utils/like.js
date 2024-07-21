@@ -1,3 +1,4 @@
+/*--- Fonction qui calcul le nombre total de like : ---*/
 function updateTotalLikes(photographerMedias) {
 	const likes = photographerMedias.map((media) => media.likes);
 	// console.log(likes);

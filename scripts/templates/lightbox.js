@@ -1,3 +1,4 @@
+/*---  Template de la Lightbox : ---*/
 function lightboxDom(photographerMedias, index) {
 	const lightboxWrapper = document.getElementById("lightbox_wrapper");
 	const lightboxModal = document.getElementById("lightbox_modal");

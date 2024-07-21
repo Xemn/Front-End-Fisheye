@@ -1,3 +1,4 @@
+/*---  Fonction qui affiche la modal de contact : ---*/
 function displayModal() {
 	const modal = document.getElementById("contact_modal");
 	modal.style.display = "flex";
@@ -27,7 +28,7 @@ function displayModal() {
 		event.stopPropagation();
 	});
 }
-
+/*--- Fonction qui ferme la modal :  ---*/
 function closeModal() {
 	const modal = document.getElementById("contact_modal");
 	modal.style.display = "none";
@@ -42,7 +43,7 @@ function closeModal() {
 	// Restaurer le focus au bouton d'ouverture :
 	document.querySelector(".contact_button").focus();
 }
-
+/*--- Fonction qui valide ou non la valeur de l'input :  ---*/
 function validateField(field, regex) {
 	const fieldValue = field.value.trim();
 
@@ -54,7 +55,7 @@ function validateField(field, regex) {
 
 	return validField;
 }
-
+/*--- Fonction qui affiche le message d'erreur correspondant à l'erreur : ---*/
 function displayErrorMessage() {
 	const errorMessages = {
 		nom: "Veuillez saisir un nom qui doit contenir au minimum 3 caractères.",
@@ -109,7 +110,7 @@ function displayErrorMessage() {
 
 	return isValidForm;
 }
-
+/*--- Fonction qui valide le formulaire :  ---*/
 function submitForm() {
 	const form = document.querySelector("form");
 

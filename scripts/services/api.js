@@ -1,3 +1,4 @@
+// Fonction qui récupère les différents photographes et leurs informations :
 async function getPhotographers() {
 	// Ceci est un exemple de données pour avoir un affichage de photographes de test dès le démarrage du projet,
 	// mais il sera à remplacer avec une requête sur le fichier JSON en utilisant "fetch".
@@ -33,8 +34,9 @@ async function getPhotographers() {
 	// console.log(photographers);
 	return photographers;
 }
-
+// Fonction qui récupère les médias d'un photographe donné :
 async function getDatasPhotographersById() {
+	/*--- Récupération de l'identifiant du photographe ----*/
 	const params = new URL(document.location).searchParams;
 	// console.log(params);
 	const id = params.get("id");

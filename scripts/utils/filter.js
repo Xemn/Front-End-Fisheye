@@ -1,3 +1,4 @@
+/*--- Fonction qui nous renvoie les médias filtrés en fonction du filtre :  ---*/
 function filteredMedias(photographerMedias, filterType) {
 	let sortedMedias = [...photographerMedias];
 	switch (filterType) {
