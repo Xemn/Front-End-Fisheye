@@ -124,7 +124,7 @@ function photographerTemplate(data) {
 			if (media instanceof Image) {
 				mediaElement = document.createElement("img");
 				mediaElement.src = media.src;
-				mediaElement.alt = media.title;
+				mediaElement.alt = `Une photo nommée : ` + media.title;
 			} else if (media instanceof Video) {
 				mediaElement = document.createElement("video");
 				mediaElement.src = media.src;
