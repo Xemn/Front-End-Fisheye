@@ -38,7 +38,8 @@ function lightboxDom(photographerMedias, index) {
 	closeIcon.classList.add("fa-solid", "fa-xmark");
 	closeBtn.appendChild(closeIcon);
 	closeBtn.id = "closeBtn";
-	closeBtn.addEventListener("click", () => {
+	closeBtn.addEventListener("click", (event) => {
+		event.stopPropagation();
 		closeLightbox();
 	});
 	closeBtn.setAttribute("aria-label", "Fermer la fenêtre modale");
@@ -80,7 +81,11 @@ function lightboxDom(photographerMedias, index) {
 
 	lightboxWrapper.appendChild(lightboxModal);
 
-	lightboxWrapper.addEventListener("click", () => closeLightbox());
+	lightboxModal.addEventListener("click", (event) => event.stopPropagation());
+
+	lightboxWrapper.addEventListener("click", () => {
+		closeLightbox();
+	});
 
 	return lightboxWrapper;
 }
